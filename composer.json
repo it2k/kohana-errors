@@ -1,0 +1,15 @@
+{
+    "name": "zyuskin_en/kohana-errors",
+    "type": "kohana-module",
+    "description": "Обработка вывода ошибок для kohanaframework PRODUCTION версии",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Егор Зюскин",
+            "email": "egor@zyuskin.ru"
+        }
+    ],
+    "require": {
+
+    }
+}
