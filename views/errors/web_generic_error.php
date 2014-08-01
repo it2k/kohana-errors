@@ -14,8 +14,8 @@
 
 $config = Kohana::$config->load('errors');
 
-if (!isset($code, $config['valid_error_codes']))
-	$code = $config['default_error_code'];
+if (!Kohana::message('errors', 'codes.'.$code.'.title'))
+	$code = $config['default_error_code'];	
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@ if (!isset($code, $config['valid_error_codes']))
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><?php echo $config['valid_error_codes'][$code]['title'] ?></title>
+	<title><?php echo Kohana::message('errors', 'codes.'.$code.'.title') ?></title>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		.my-page-header {margin-top: 50px;}
@@ -36,17 +36,27 @@ if (!isset($code, $config['valid_error_codes']))
 		<div class="row">
 			<div class="col-md-6 col-md-push-3">
 				<div class="panel panel-danger my-page-header">
-					<div class="panel-heading"><?php echo $config['header_text'] ?></div>
+					<div class="panel-heading"><?php echo Kohana::message('errors', 'header_text') ?></div>
 					<div class="panel-body">
 						<p>
-							<strong><?=($message AND !$config['show_alter_text_always']) ? HTML::chars($message) : $config['valid_error_codes'][$code]['alter_text']?></strong>
+							<strong><?=($message AND !$config['show_alter_text_always']) ? HTML::chars($message) : Kohana::message('errors', 'codes.'.$code.'.alter_text')?></strong>
+							<?php if ($class == "ORM_Validation_Exception"): $errors = $e->errors('validation'); print "<ul>"; foreach($errors as $error): ?>
+							<small><li><?=HTML::chars($error)?></li></small>
+							<?php endforeach; print "</ul>"; endif; ?>
 						</p>
-						<p><?php echo str_replace(':contact_email', $config['contact_email'], $config['footer_text']) ?></p>
+						<p><?php echo str_replace(':contact_email', $config['contact_email'], Kohana::message('errors', 'footer_text')) ?></p>
 					</div>
-					<?php if ((is_array($config['show_debug_info']) AND in_array($_SERVER['REMOTE_ADDR'], $config['show_debug_info'])) OR $config['show_debug_info'] === TRUE): ?>
+					<?php if ((is_array($config['show_debug_info']) AND in_array(@$_SERVER['REMOTE_ADDR'], $config['show_debug_info'])) OR $config['show_debug_info'] === TRUE): ?>
 					<div class="panel-footer">
-						<small>At <?=Debug::path($file)?> [ <?=HTML::chars($line);?> ] </small>
+						<p>
+							<strong>Отладачная информация: </strong>
+						</p>
+						<p>
+							<small><?php echo $class ?></small><br>
+							<small><?php echo $message ?></small>
+						</p>
 						<ul>
+						<li><?=Debug::path($file)?> [ <?=HTML::chars($line);?> ] </li>
 							<?php foreach($trace as $step): ?>
 								<li>
 									<small>
