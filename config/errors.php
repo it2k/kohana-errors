@@ -1,15 +1,9 @@
 <?php
 
 return array(
-	'header_text' => 'Извините, но что то пошло не так.',
-	'footer_text' => 'Пожалуйста обновите страницу или воспользуйтесь кнопкой "Назад" для того чтобы вернутся. Если проблема останется сообщите <a href="mailto::contact_email">нам</a> пожалуйста об этом.',
-	'valid_error_codes' => array(
-		'404' => array('title' => 'Страница не найдена', 'alter_text' => 'Запрошенная страница на сервере не найдена.'),
-		'403' => array('title' => 'Доступ запрещен', 'alter_text' => 'Доступ к этой странице ограничен администратором.'),
-		'500' => array('title' => 'Внутренняя ошибка сервера', 'alter_text' => 'При выполнении сценария на сервере возникли проблемы.'),
-	),
-	'show_alter_text_always' => TRUE,
-	'default_error_code' => '500', // Если код ошибки не наедтся в масиве valid_errors система подставит эту ошибку
+	'show_alter_text_always' => TRUE, // Показвать алтернативный текст ошибки вместо реального $e->message
+	'show_validation_error' => TRUE, // Показывать ошибки валидации
+	'default_error_code' => '500', // Если код ошибки не наедтся в файле сообщений подставится этот код ошибки
 	'show_debug_info' => array('127.0.0.1'), // TRUE или FALSE или Массив IP адресов
-	'contact_email' => $_SERVER['SERVER_ADMIN'],
+	'contact_email' => $_SERVER['SERVER_ADMIN'], // Контактный email адрес
 );
