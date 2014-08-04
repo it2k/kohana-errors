@@ -49,7 +49,7 @@ if (!Kohana::message('errors', 'codes.'.$code.'.title'))
 					<?php if ((is_array($config['show_debug_info']) AND in_array(@$_SERVER['REMOTE_ADDR'], $config['show_debug_info'])) OR $config['show_debug_info'] === TRUE): ?>
 					<div class="panel-footer">
 						<p>
-							<strong>Отладачная информация: </strong>
+							<strong>Отладочная информация: </strong>
 						</p>
 						<p>
 							<small><?php echo $class ?></small><br>
