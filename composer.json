@@ -1,5 +1,5 @@
 {
-    "name": "zyuskin_en/kohana-errors",
+    "name": "it2k/kohana-errors",
     "type": "kohana-module",
     "description": "Обработка вывода ошибок для kohanaframework PRODUCTION версии",
     "license": "GPL",
